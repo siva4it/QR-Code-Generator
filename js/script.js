@@ -15,9 +15,9 @@ const exampleBtns = document.querySelectorAll('.example-btn');
 let currentQRCode = null;
 let currentText = '';
 
-// Initialize the app
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM loaded, initializing app...');
+// Global initialization function
+function initializeApp() {
+    console.log('Initializing app...');
     
     // Check if QRCode library is available
     if (typeof QRCode === 'undefined') {
@@ -50,6 +50,12 @@ document.addEventListener('DOMContentLoaded', function() {
         console.error('Error initializing app:', error);
         showError('Failed to initialize app: ' + error.message);
     }
+}
+
+// Initialize the app when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded, initializing app...');
+    initializeApp();
 });
 
 // Setup event listeners
