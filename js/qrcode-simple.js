@@ -32,12 +32,18 @@ class SimpleQRCode {
         const startX = margin;
         const startY = margin;
 
-        // Create a deterministic pattern based on the text
+        // Create a more visible pattern based on the text
         const hash = this.simpleHash(text);
+        console.log('Generating QR code for:', text, 'with hash:', hash);
         
+        // Create a more dense pattern (about 50% filled)
         for (let i = 0; i < 25; i++) {
             for (let j = 0; j < 25; j++) {
-                if ((hash + i * 31 + j * 17) % 3 === 0) {
+                // Use a more complex pattern that creates visible blocks
+                const pattern = (hash + i * 37 + j * 23) % 2;
+                const corner = (i < 3 && j < 3) || (i >= 22 && j < 3) || (i < 3 && j >= 22);
+                
+                if (pattern === 0 || corner) {
                     this.ctx.fillRect(
                         startX + i * cellSize,
                         startY + j * cellSize,
@@ -47,6 +53,13 @@ class SimpleQRCode {
                 }
             }
         }
+        
+        // Add some border for better visibility
+        this.ctx.strokeStyle = color;
+        this.ctx.lineWidth = 2;
+        this.ctx.strokeRect(margin - 1, margin - 1, width - 2 * margin + 2, height - 2 * margin + 2);
+        
+        console.log('QR code generated with size:', width, 'x', height);
 
         return this.canvas;
     }

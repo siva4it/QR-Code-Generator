@@ -96,6 +96,7 @@ async function generateQRCode() {
     }
     
     currentText = text;
+    console.log('Starting QR code generation for:', text);
     
     // Show loading state
     showLoading();
@@ -104,21 +105,19 @@ async function generateQRCode() {
         const options = {
             width: parseInt(qrSize.value),
             margin: 2,
-            color: {
-                dark: qrColor.value,
-                light: qrBgColor.value
-            },
-            errorCorrectionLevel: qrErrorCorrection.value
+            color: qrColor.value,
+            backgroundColor: qrBgColor.value
         };
         
+        console.log('QR code options:', options);
+        
         // Generate QR code as SVG
-        const svgString = await QRCode.toString(text, {
-            ...options,
-            type: 'svg'
-        });
+        const svgString = await QRCode.toString(text, options);
+        console.log('SVG generated, length:', svgString.length);
         
         // Generate QR code as canvas for PNG download
         const canvas = await QRCode.toCanvas(text, options);
+        console.log('Canvas generated, size:', canvas.width, 'x', canvas.height);
         
         // Display the QR code
         displayQRCode(svgString, canvas);
@@ -135,6 +134,10 @@ async function generateQRCode() {
 
 // Display QR Code
 function displayQRCode(svgString, canvas) {
+    console.log('Displaying QR code...');
+    console.log('SVG string preview:', svgString.substring(0, 100) + '...');
+    console.log('Canvas data URL:', canvas.toDataURL().substring(0, 100) + '...');
+    
     qrOutput.innerHTML = svgString;
     qrOutput.classList.add('has-content');
     
@@ -147,6 +150,8 @@ function displayQRCode(svgString, canvas) {
     
     // Show download buttons
     downloadSection.style.display = 'flex';
+    
+    console.log('QR code displayed successfully');
 }
 
 // Show loading state
