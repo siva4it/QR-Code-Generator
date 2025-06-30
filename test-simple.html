@@ -34,7 +34,7 @@
         <div id="library-test"></div>
     </div>
 
-    <script src="js/qrcode-working.js"></script>
+    <script src="js/qrcode-scannable.js"></script>
     <script>
         function testBasicCanvas() {
             const canvas = document.createElement('canvas');
@@ -60,7 +60,7 @@
             console.log('Testing QR generation for:', text);
             
             try {
-                const qr = new WorkingQRCode();
+                const qr = new ScannableQRCode();
                 const canvas = qr.generate(text, {
                     width: 256,
                     height: 256,
@@ -84,7 +84,7 @@
                 result.innerHTML = '<p style="color: green;">✅ QRCode library loaded successfully</p>';
                 result.innerHTML += '<p>QRCode.toCanvas: ' + (typeof QRCode.toCanvas) + '</p>';
                 result.innerHTML += '<p>QRCode.toString: ' + (typeof QRCode.toString) + '</p>';
-                result.innerHTML += '<p>WorkingQRCode: ' + (typeof WorkingQRCode) + '</p>';
+                result.innerHTML += '<p>ScannableQRCode: ' + (typeof ScannableQRCode) + '</p>';
             } else {
                 result.innerHTML = '<p style="color: red;">❌ QRCode library not loaded</p>';
             }
