@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Test</title>
+</head>
+<body>
+    <h1>QR Code Library Test</h1>
+    <div id="test-output"></div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode/1.5.3/qrcode.min.js"></script>
+    <script>
+        console.log('Testing QRCode library...');
+        
+        if (typeof QRCode !== 'undefined') {
+            console.log('QRCode library loaded successfully!');
+            document.getElementById('test-output').innerHTML = '<p style="color: green;">✅ QRCode library loaded successfully!</p>';
+            
+            // Test QR code generation
+            QRCode.toCanvas('Test QR Code', { width: 128 }, function (error, canvas) {
+                if (error) {
+                    console.error('Error generating QR code:', error);
+                    document.getElementById('test-output').innerHTML += '<p style="color: red;">❌ Error generating QR code: ' + error.message + '</p>';
+                } else {
+                    console.log('QR code generated successfully!');
+                    document.getElementById('test-output').innerHTML += '<p style="color: green;">✅ QR code generated successfully!</p>';
+                    document.body.appendChild(canvas);
+                }
+            });
+        } else {
+            console.error('QRCode library not loaded!');
+            document.getElementById('test-output').innerHTML = '<p style="color: red;">❌ QRCode library not loaded!</p>';
+        }
+    </script>
+</body>
+</html> 

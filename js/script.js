@@ -17,21 +17,39 @@ let currentText = '';
 
 // Initialize the app
 document.addEventListener('DOMContentLoaded', function() {
-    setupEventListeners();
-    setupExampleButtons();
+    console.log('DOM loaded, initializing app...');
     
-    // Auto-generate QR code when text changes (with debounce)
-    let debounceTimer;
-    qrText.addEventListener('input', function() {
-        clearTimeout(debounceTimer);
-        debounceTimer = setTimeout(() => {
-            if (qrText.value.trim()) {
-                generateQRCode();
-            } else {
-                showPlaceholder();
-            }
-        }, 500);
-    });
+    // Check if QRCode library is available
+    if (typeof QRCode === 'undefined') {
+        console.error('QRCode library not loaded!');
+        showError('QRCode library failed to load. Please refresh the page.');
+        return;
+    }
+    
+    console.log('QRCode library loaded successfully');
+    
+    try {
+        setupEventListeners();
+        setupExampleButtons();
+        
+        // Auto-generate QR code when text changes (with debounce)
+        let debounceTimer;
+        qrText.addEventListener('input', function() {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+                if (qrText.value.trim()) {
+                    generateQRCode();
+                } else {
+                    showPlaceholder();
+                }
+            }, 500);
+        });
+        
+        console.log('App initialized successfully');
+    } catch (error) {
+        console.error('Error initializing app:', error);
+        showError('Failed to initialize app: ' + error.message);
+    }
 });
 
 // Setup event listeners
