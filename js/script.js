@@ -105,20 +105,15 @@ async function generateQRCode() {
         const options = {
             width: parseInt(qrSize.value),
             margin: 2,
-            color: {
-                dark: qrColor.value,
-                light: qrBgColor.value
-            },
+            color: qrColor.value,
+            backgroundColor: qrBgColor.value,
             errorCorrectionLevel: qrErrorCorrection.value
         };
         
         console.log('QR code options:', options);
         
         // Generate QR code as SVG
-        const svgString = await QRCode.toString(text, {
-            ...options,
-            type: 'svg'
-        });
+        const svgString = await QRCode.toString(text, options);
         console.log('SVG generated, length:', svgString.length);
         
         // Generate QR code as canvas for PNG download

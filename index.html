@@ -105,18 +105,7 @@
         </footer>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
-    <script>
-        // Fallback if CDN fails
-        if (typeof QRCode === 'undefined') {
-            console.log('CDN failed, loading local fallback...');
-            const script = document.createElement('script');
-            script.src = 'js/qrcode-simple.js';
-            document.head.appendChild(script);
-        } else {
-            console.log('QRCode library loaded from CDN');
-        }
-    </script>
+    <script src="js/qrcode-working.js"></script>
     <script src="js/script.js"></script>
 </body>
 </html> 
