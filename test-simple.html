@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test-section { margin: 20px 0; padding: 20px; border: 1px solid #ccc; }
+        canvas { border: 1px solid #000; margin: 10px; }
+        button { padding: 10px 20px; margin: 5px; }
+        input { padding: 5px; margin: 5px; }
+    </style>
+</head>
+<body>
+    <h1>QR Code Generation Test</h1>
+    
+    <div class="test-section">
+        <h3>Test 1: Basic Canvas</h3>
+        <button onclick="testBasicCanvas()">Test Basic Canvas</button>
+        <div id="basic-canvas"></div>
+    </div>
+    
+    <div class="test-section">
+        <h3>Test 2: QR Code Generation</h3>
+        <input type="text" id="test-text" value="Hello World" placeholder="Enter text">
+        <button onclick="testQRGeneration()">Generate QR Code</button>
+        <div id="qr-output"></div>
+    </div>
+    
+    <div class="test-section">
+        <h3>Test 3: Library Loading</h3>
+        <button onclick="testLibrary()">Test Library</button>
+        <div id="library-test"></div>
+    </div>
+
+    <script src="js/qrcode-working.js"></script>
+    <script>
+        function testBasicCanvas() {
+            const canvas = document.createElement('canvas');
+            canvas.width = 200;
+            canvas.height = 200;
+            const ctx = canvas.getContext('2d');
+            
+            // Draw a simple pattern
+            ctx.fillStyle = '#000';
+            ctx.fillRect(10, 10, 180, 180);
+            ctx.fillStyle = '#fff';
+            ctx.fillRect(20, 20, 160, 160);
+            ctx.fillStyle = '#000';
+            ctx.fillRect(30, 30, 140, 140);
+            
+            document.getElementById('basic-canvas').innerHTML = '';
+            document.getElementById('basic-canvas').appendChild(canvas);
+            console.log('Basic canvas test completed');
+        }
+        
+        function testQRGeneration() {
+            const text = document.getElementById('test-text').value;
+            console.log('Testing QR generation for:', text);
+            
+            try {
+                const qr = new WorkingQRCode();
+                const canvas = qr.generate(text, {
+                    width: 256,
+                    height: 256,
+                    color: '#000000',
+                    backgroundColor: '#FFFFFF'
+                });
+                
+                document.getElementById('qr-output').innerHTML = '';
+                document.getElementById('qr-output').appendChild(canvas);
+                console.log('QR generation test completed');
+            } catch (error) {
+                console.error('QR generation failed:', error);
+                document.getElementById('qr-output').innerHTML = '<p style="color: red;">Error: ' + error.message + '</p>';
+            }
+        }
+        
+        function testLibrary() {
+            const result = document.getElementById('library-test');
+            
+            if (typeof QRCode !== 'undefined') {
+                result.innerHTML = '<p style="color: green;">✅ QRCode library loaded successfully</p>';
+                result.innerHTML += '<p>QRCode.toCanvas: ' + (typeof QRCode.toCanvas) + '</p>';
+                result.innerHTML += '<p>QRCode.toString: ' + (typeof QRCode.toString) + '</p>';
+                result.innerHTML += '<p>WorkingQRCode: ' + (typeof WorkingQRCode) + '</p>';
+            } else {
+                result.innerHTML = '<p style="color: red;">❌ QRCode library not loaded</p>';
+            }
+        }
+        
+        // Auto-run library test on load
+        window.addEventListener('load', testLibrary);
+    </script>
+</body>
+</html> 

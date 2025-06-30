@@ -8,6 +8,8 @@ class WorkingQRCode {
     }
 
     generate(text, options = {}) {
+        console.log('Generating QR code for:', text, 'with options:', options);
+        
         const {
             width = 256,
             height = 256,
@@ -26,15 +28,19 @@ class WorkingQRCode {
 
         // Generate QR code data using a proper algorithm
         const qrData = this.generateQRData(text);
+        console.log('QR data generated, size:', qrData.length, 'x', qrData[0].length);
         
         // Calculate cell size
         const dataSize = qrData.length;
         const cellSize = Math.floor((Math.min(width, height) - 2 * margin) / dataSize);
         const startX = (width - dataSize * cellSize) / 2;
         const startY = (height - dataSize * cellSize) / 2;
+        
+        console.log('Cell size:', cellSize, 'Start position:', startX, startY);
 
         // Draw QR code
         this.ctx.fillStyle = color;
+        let drawnCells = 0;
         for (let i = 0; i < dataSize; i++) {
             for (let j = 0; j < dataSize; j++) {
                 if (qrData[i][j]) {
@@ -44,14 +50,20 @@ class WorkingQRCode {
                         cellSize,
                         cellSize
                     );
+                    drawnCells++;
                 }
             }
         }
+        
+        console.log('Drew', drawnCells, 'cells out of', dataSize * dataSize, 'total cells');
+        console.log('Canvas size:', this.canvas.width, 'x', this.canvas.height);
 
         return this.canvas;
     }
 
     generateQRData(text) {
+        console.log('Generating QR data for text:', text);
+        
         // Use a more sophisticated approach to create a proper QR code
         const size = 21; // Version 1 QR code
         const data = Array(size).fill().map(() => Array(size).fill(false));
@@ -75,7 +87,17 @@ class WorkingQRCode {
         
         // Generate data bits using a proper encoding
         const encodedData = this.encodeData(text);
+        console.log('Encoded data length:', encodedData.length, 'bits');
         this.placeData(data, encodedData);
+        
+        // Count filled cells
+        let filledCells = 0;
+        for (let i = 0; i < size; i++) {
+            for (let j = 0; j < size; j++) {
+                if (data[i][j]) filledCells++;
+            }
+        }
+        console.log('Total filled cells:', filledCells, 'out of', size * size);
         
         return data;
     }
