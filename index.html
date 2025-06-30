@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator</title>
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <meta name="description" content="Generate beautiful QR codes for URLs, text, phone numbers, emails, and more. Free online QR code generator with customizable options.">
+    <meta name="keywords" content="QR code generator, QR code, barcode, URL, text, phone, email, WiFi">
+    <meta name="author" content="QR Code Generator">
+    <meta property="og:title" content="QR Code Generator">
+    <meta property="og:description" content="Generate beautiful QR codes for URLs, text, phone numbers, emails, and more.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://siva4it.github.io/QR-Code-Generator/">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="QR Code Generator">
+    <meta name="twitter:description" content="Generate beautiful QR codes for URLs, text, phone numbers, emails, and more.">
+    <link rel="manifest" href="assets/manifest.json">
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1><i class="fas fa-qrcode"></i> QR Code Generator</h1>
+            <p>Generate QR codes for URLs, text, phone numbers, and more</p>
+        </header>
+
+        <main class="main-content">
+            <div class="input-section">
+                <div class="input-group">
+                    <label for="qr-text">Enter text or URL:</label>
+                    <textarea id="qr-text" placeholder="Enter text, URL, phone number, or email..."></textarea>
+                </div>
+
+                <div class="options-section">
+                    <div class="option-group">
+                        <label for="qr-size">Size:</label>
+                        <select id="qr-size">
+                            <option value="128">128x128</option>
+                            <option value="256" selected>256x256</option>
+                            <option value="512">512x512</option>
+                        </select>
+                    </div>
+
+                    <div class="option-group">
+                        <label for="qr-color">Color:</label>
+                        <input type="color" id="qr-color" value="#000000">
+                    </div>
+
+                    <div class="option-group">
+                        <label for="qr-bg-color">Background:</label>
+                        <input type="color" id="qr-bg-color" value="#FFFFFF">
+                    </div>
+
+                    <div class="option-group">
+                        <label for="qr-error-correction">Error Correction:</label>
+                        <select id="qr-error-correction">
+                            <option value="L">Low (7%)</option>
+                            <option value="M" selected>Medium (15%)</option>
+                            <option value="Q">Quartile (25%)</option>
+                            <option value="H">High (30%)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button id="generate-btn" class="generate-btn">
+                    <i class="fas fa-magic"></i> Generate QR Code
+                </button>
+            </div>
+
+            <div class="output-section">
+                <div id="qr-output" class="qr-output">
+                    <div class="placeholder">
+                        <i class="fas fa-qrcode"></i>
+                        <p>Your QR code will appear here</p>
+                    </div>
+                </div>
+
+                <div id="download-section" class="download-section" style="display: none;">
+                    <button id="download-png" class="download-btn">
+                        <i class="fas fa-download"></i> Download PNG
+                    </button>
+                    <button id="download-svg" class="download-btn">
+                        <i class="fas fa-download"></i> Download SVG
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <div class="examples-section">
+            <h3>Quick Examples:</h3>
+            <div class="example-buttons">
+                <button class="example-btn" data-text="https://github.com">GitHub</button>
+                <button class="example-btn" data-text="Hello World!">Hello World</button>
+                <button class="example-btn" data-text="tel:+1234567890">Phone Number</button>
+                <button class="example-btn" data-text="mailto:example@email.com">Email</button>
+                <button class="example-btn" data-text="WIFI:S:MyWiFi;T:WPA;P:mypassword123;;">WiFi</button>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>Made with <i class="fas fa-heart"></i> for GitHub Pages</p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html> 

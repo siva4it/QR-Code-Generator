@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://siva4it.github.io/QR-Code-Generator/sitemap.xml 
