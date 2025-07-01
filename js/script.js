@@ -87,7 +87,7 @@ function setupExampleButtons() {
 }
 
 // Generate QR Code
-async function generateQRCode() {
+function generateQRCode() {
     const text = qrText.value.trim();
     
     if (!text) {
@@ -106,19 +106,21 @@ async function generateQRCode() {
             width: parseInt(qrSize.value),
             margin: 2,
             color: qrColor.value,
-            backgroundColor: qrBgColor.value,
-            errorCorrectionLevel: qrErrorCorrection.value
+            backgroundColor: qrBgColor.value
         };
         
         console.log('QR code options:', options);
         
-        // Generate QR code as SVG
-        const svgString = await QRCode.toString(text, options);
-        console.log('SVG generated, length:', svgString.length);
-        
-        // Generate QR code as canvas for PNG download
-        const canvas = await QRCode.toCanvas(text, options);
+        // Generate QR code directly
+        const qr = new FinalQRCode();
+        const canvas = qr.generate(text, options);
         console.log('Canvas generated, size:', canvas.width, 'x', canvas.height);
+        
+        // Convert to SVG for display
+        const dataURL = canvas.toDataURL();
+        const svgString = `<svg width="${canvas.width}" height="${canvas.height}" xmlns="http://www.w3.org/2000/svg">
+            <image href="${dataURL}" width="${canvas.width}" height="${canvas.height}"/>
+        </svg>`;
         
         // Display the QR code
         displayQRCode(svgString, canvas);
